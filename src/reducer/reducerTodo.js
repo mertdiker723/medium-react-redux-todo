@@ -1,12 +1,14 @@
 import { Types } from '../action/action-type';
 
-export function todoReducer(state = [], action) {    
+export function todoReducer(state = [], action) {
     switch (action.type) {
         case Types.ADD_TODO_SUCCESS:
             return [...state, action.payload];
         case Types.DELETE_TODO_SUCCESS:
             return state.filter(item => item.id !== action.payload.id);
         case Types.UPDATE_TODO_SUCCESS:
+            return state.map(todo => todo.id === action.payload.id ? action.payload : todo);
+        case Types.COMPLETED_TODO_SUCCESS:
             return state.map(todo => todo.id === action.payload.id ? action.payload : todo);
         default:
             return state;

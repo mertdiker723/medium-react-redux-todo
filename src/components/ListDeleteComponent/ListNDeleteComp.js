@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { deleteTodoAction, getOneTodoAction, showUpdateAddButtonAction } from '../../action/action';
+import { deleteTodoAction, getOneTodoAction, showUpdateAddButtonAction, completedTodoAction } from '../../action/action';
 
 class ListNDeleteComp extends Component {
-
 
     deleteTodo = (item) => {
         this.props.onDeleteTodo(item);
@@ -20,6 +19,14 @@ class ListNDeleteComp extends Component {
             completed: item.completed,
         });
         this.props.onShowUpdateAddButton(true);
+    }
+
+    completeTask = async (item) => {
+        await this.props.onCompletedTodo({
+            id: item.id,
+            todo: item.todo,
+            completed: !item.completed
+        });
     }
 
     render() {
@@ -41,7 +48,7 @@ class ListNDeleteComp extends Component {
         return (
             <li key={item.id} className="list-group-item list-group-item-primary mb-3 ">
                 <input type="checkbox" className="mr-3" />
-                <span className="list-item-font">{item.todo}</span>
+                <span onClick={() => this.completeTask(item)} className={item.completed ? "list-item-font line-todo" : "list-item-font"}>{item.todo}</span>
                 <div className="d-inline float-right">
                     <button onClick={() => this.editTodo(item)} className="mr-2"><img src="https://img.icons8.com/wired/64/000000/edit.png" alt="no edit icon" width="25" /></button>
                     <button onClick={() => this.deleteTodo(item)}><img src="https://img.icons8.com/officel/16/000000/delete-sign.png" alt="no delete icon" width="25" /></button>
@@ -51,7 +58,7 @@ class ListNDeleteComp extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {    
     return {
         todoTasks: state.todoReducer
     }
@@ -60,7 +67,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     onDeleteTodo: deleteTodoAction,
     onGetOneTodo: getOneTodoAction,
-    onShowUpdateAddButton: showUpdateAddButtonAction
+    onShowUpdateAddButton: showUpdateAddButtonAction,
+    onCompletedTodo: completedTodoAction
 }
 
 

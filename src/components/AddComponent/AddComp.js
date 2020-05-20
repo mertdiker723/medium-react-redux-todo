@@ -53,8 +53,7 @@ class AddComp extends Component {
             todo: "",
         })
     }
-
-    //form submit i ekle
+    
     render() {
         return (
             <div className="mb-4">

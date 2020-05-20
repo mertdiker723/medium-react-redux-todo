@@ -4,4 +4,10 @@ body{
 
 .list-item-font{
     font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.line-todo{
+    text-decoration: line-through;
 }

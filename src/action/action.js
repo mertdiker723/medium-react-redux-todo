@@ -21,6 +21,13 @@ export function updateTodoAction(item) {
     }
 }
 
+export function completedTodoAction(item) {
+    return {
+        type: Types.COMPLETED_TODO_SUCCESS,
+        payload: item
+    }
+}
+
 export function getOneTodoAction(item) {
     return {
         type: Types.GETONE_TODO_SUCCESS,
