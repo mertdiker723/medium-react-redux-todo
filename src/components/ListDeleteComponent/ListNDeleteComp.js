@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { deleteTodoAction, getOneTodoAction, showUpdateAddButtonAction, completedTodoAction, clearSelectedTodoAction } from '../../action/action';
+import { deleteTodoAction, getOneTodoAction, showUpdateAddButtonAction, completedTodoAction } from '../../action/action';
 
 class ListNDeleteComp extends Component {
 
@@ -52,8 +52,7 @@ class ListNDeleteComp extends Component {
         });
     }
 
-    render() {
-        console.log(this.props.clearTasks)
+    render() {        
         return (
             <div>
                 <ul className="list-group">
@@ -84,8 +83,7 @@ class ListNDeleteComp extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        todoTasks: state.todoReducer,
-        clearTasks: state.clearSelectedReducer
+        todoTasks: state.todoReducer,        
     }
 }
 
@@ -93,8 +91,7 @@ const mapDispatchToProps = {
     onDeleteTodo: deleteTodoAction,
     onGetOneTodo: getOneTodoAction,
     onShowUpdateAddButton: showUpdateAddButtonAction,
-    onCompletedTodo: completedTodoAction,
-    onClearSelectedTodo: clearSelectedTodoAction
+    onCompletedTodo: completedTodoAction,    
 }
 
 
