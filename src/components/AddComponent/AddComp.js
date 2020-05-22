@@ -21,7 +21,7 @@ class AddComp extends Component {
             this.setState({
                 todo: this.props.oneTodo.todo,
             })
-        }
+        }        
     }
 
     addTodo = async (e) => {

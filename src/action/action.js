@@ -43,4 +43,13 @@ export function showUpdateAddButtonAction(item) {
 }
 
 
+
+export function clearSelectedTodoAction(item) {
+    return {
+        type: Types.CLEAR_SELECTED_TODO_SUCCESS,
+        payload: item
+    }
+}
+
+
 // error action ı koy

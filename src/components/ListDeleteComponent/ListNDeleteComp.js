@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { deleteTodoAction, getOneTodoAction, showUpdateAddButtonAction, completedTodoAction } from '../../action/action';
+import { deleteTodoAction, getOneTodoAction, showUpdateAddButtonAction, completedTodoAction, clearSelectedTodoAction } from '../../action/action';
 
 class ListNDeleteComp extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            data: []
+        }
+    }
 
     deleteTodo = (item) => {
         this.props.onDeleteTodo(item);
@@ -29,7 +37,23 @@ class ListNDeleteComp extends Component {
         });
     }
 
+    checkBoxTodo = (e, item) => {        
+        if (e.target.checked) {
+            const x = [...this.state.data, item];
+            this.setState({
+                data: x
+            })
+        }
+    }
+
+    deleteAllSelectedTodos = () => {
+        this.state.data.forEach(element => {
+            this.props.onDeleteTodo(element);
+        });
+    }
+
     render() {
+        console.log(this.props.clearTasks)
         return (
             <div>
                 <ul className="list-group">
@@ -39,7 +63,7 @@ class ListNDeleteComp extends Component {
                         )
                     })}
                 </ul>
-                <button className="btn btn-dark">Clear Tasks</button>
+                <button onClick={this.deleteAllSelectedTodos} className="btn btn-dark">Clear Tasks</button>
             </div>
         )
     }
@@ -47,7 +71,7 @@ class ListNDeleteComp extends Component {
     todoList = (item) => {
         return (
             <li key={item.id} className="list-group-item list-group-item-primary mb-3 ">
-                <input type="checkbox" className="mr-3" />
+                <input onChange={(e) => this.checkBoxTodo(e, item)} type="checkbox" className="mr-3" />
                 <span onClick={() => this.completeTask(item)} className={item.completed ? "list-item-font line-todo" : "list-item-font"}>{item.todo}</span>
                 <div className="d-inline float-right">
                     <button onClick={() => this.editTodo(item)} className="mr-2"><img src="https://img.icons8.com/wired/64/000000/edit.png" alt="no edit icon" width="25" /></button>
@@ -58,9 +82,10 @@ class ListNDeleteComp extends Component {
     }
 }
 
-const mapStateToProps = (state) => {    
+const mapStateToProps = (state) => {
     return {
-        todoTasks: state.todoReducer
+        todoTasks: state.todoReducer,
+        clearTasks: state.clearSelectedReducer
     }
 }
 
@@ -68,7 +93,8 @@ const mapDispatchToProps = {
     onDeleteTodo: deleteTodoAction,
     onGetOneTodo: getOneTodoAction,
     onShowUpdateAddButton: showUpdateAddButtonAction,
-    onCompletedTodo: completedTodoAction
+    onCompletedTodo: completedTodoAction,
+    onClearSelectedTodo: clearSelectedTodoAction
 }
 
 
