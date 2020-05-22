@@ -33,12 +33,3 @@ export function showButtonReducer(state = false, action) {
     }
 }
 
-
-export function clearSelectedReducer(state = [], action) {
-    switch (action.type) {
-        case Types.CLEAR_SELECTED_TODO_SUCCESS:
-            return action.payload;
-        default:
-            return state;
-    }
-}
